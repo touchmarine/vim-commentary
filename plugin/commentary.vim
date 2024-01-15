@@ -9,8 +9,10 @@ endif
 let g:loaded_commentary = 1
 
 function! s:surroundings() abort
+  " For '// %s' it will remove the space. But it will still add a space after
+  " '%s' if there is any non-whitespace directly after it.
   return split(get(b:, 'commentary_format', substitute(substitute(substitute(
-        \ &commentstring, '^$', '%s', ''), '\S\zs%s','%s', '') ,'%s\ze\S', '%s ', '')), '%s', 1)
+        \ &commentstring, '^$', '%s', ''), '\s%s','%s', '') ,'%s\ze\S', '%s ', '')), '%s', 1)
 endfunction
 
 function! s:strip_white_space(l,r,line) abort
